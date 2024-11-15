@@ -1,4 +1,5 @@
 import Button from '../components/Button';
+import Callout from '../components/Callout';
 
 export default function Home() {
   return (
@@ -23,7 +24,21 @@ export default function Home() {
         </div>
         <div className="w-full sm:w-1/2"></div>
       </section>
-      <section className="bg-navy h-6 text-white">Callout section</section>
+
+      <Callout>
+        <div className="flex flex-col text-center">
+          <p className="text-cat font-bold">
+            "Shoplyst has transformed my shopping experience completely!"
+          </p>
+          <img
+            src="https://www.fakepersongenerator.com/Face/female/female201410239383418.jpg"
+            alt="Jane Doe"
+            className="mx-auto my-6 h-14 w-14 rounded-full"
+          />
+          <p className="-mb-1 font-medium">Jane Doe</p>
+          <p>Happy Customer</p>
+        </div>
+      </Callout>
     </div>
   );
 }
