@@ -50,11 +50,16 @@ export default function Home() {
 
       {/* Shop */}
       <section
-        id="shop"
-        className='className="mx-auto sm:flex-row" flex w-full max-w-screen-lg flex-col px-4 py-24'
+        id="hero"
+        className="mx-auto flex w-full max-w-screen-lg flex-col px-4 py-24 sm:flex-row"
       >
-        <div>
-          <h2>Products</h2>
+        <div className="flex w-1/2 flex-col">
+          <p className="text-sm font-semibold">Splurge</p>
+          <h2 className="text-navy my-4 py-0 text-4xl font-medium">Products</h2>
+          <p>
+            Discover the latest products from top brands across various
+            categories. Shop for electronics, home goods, and more with ease.
+          </p>
         </div>
       </section>
 
