@@ -7,7 +7,7 @@ export default function RootLayout() {
   return (
     <>
       <MainNavigation />
-      <main className="mx-auto flex w-full max-w-screen-lg flex-grow">
+      <main className="mx-auto flex w-full flex-grow">
         <Outlet />
       </main>
       <Footer />
