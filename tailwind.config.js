@@ -49,6 +49,7 @@ export default {
       },
       fontFamily: {
         roboto: ['Roboto', 'sans-serif'],
+        pacifico: ['Pacifico', 'cursive'],
       },
     },
     screens: {

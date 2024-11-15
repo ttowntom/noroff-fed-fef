@@ -31,10 +31,14 @@ export default function MainNavigation() {
         <div className="flex flex-grow">
           <NavLink
             to="/"
-            className="text-xl font-bold"
+            className="font-pacifico text-center text-xl"
             onClick={() => setIsMenuOpen(false)}
           >
-            SHOPLYST
+            {' '}
+            <span className="mr-2">
+              <FontAwesomeIcon icon={byPrefixAndName.fas['store']} />
+            </span>
+            Shoplyst
           </NavLink>
         </div>
 
