@@ -4,7 +4,7 @@ import { byPrefixAndName } from '@awesome.me/kit-8d12afa6e5/icons';
 
 export default function Footer() {
   return (
-    <footer className="mx-auto flex w-full max-w-screen-lg flex-col justify-center px-4 pb-4">
+    <footer className="mx-auto flex w-full max-w-screen-lg flex-col justify-center px-4 pb-4 pt-12">
       <p className="font-pacifico mb-10 text-center text-xl">
         <span className="mr-2">
           <FontAwesomeIcon icon={byPrefixAndName.fas['store']} />
