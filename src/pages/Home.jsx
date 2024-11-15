@@ -1,5 +1,9 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { byPrefixAndName } from '@awesome.me/kit-8d12afa6e5/icons';
+
 import Button from '../components/Button';
 import Callout from '../components/Callout';
+import Feature from '../components/Feature';
 
 export default function Home() {
   return (
@@ -19,14 +23,18 @@ export default function Home() {
           </p>
           <div className="flex gap-4">
             <Button style="primary">Shop</Button>
-            <Button>Learn More</Button>
+            <Button>
+              <a href="#discover">Learn More</a>
+            </Button>
           </div>
         </div>
         <div className="w-full sm:w-1/2"></div>
       </section>
 
+      {/* Testimonial */}
       <Callout>
         <div className="flex flex-col text-center">
+          <h2 className="invisible">Testimonial</h2>
           <p className="text-cat font-bold">
             "Shoplyst has transformed my shopping experience completely!"
           </p>
@@ -38,6 +46,59 @@ export default function Home() {
           <p className="-mb-1 font-medium">Jane Doe</p>
           <p>Happy Customer</p>
         </div>
+      </Callout>
+
+      {/* Shop */}
+      <section
+        id="shop"
+        className='className="mx-auto sm:flex-row" flex w-full max-w-screen-lg flex-col px-4 py-24'
+      >
+        <div>
+          <h2>Products</h2>
+        </div>
+      </section>
+
+      {/* Discover */}
+      <Callout>
+        <div id="discover" className="flex flex-col text-center">
+          <h2>Discover</h2>
+          <p className="text-cat my-2 text-3xl font-bold">
+            Unleash Your Shopping Experience with Shoplyst
+          </p>
+          <p className="mx-auto max-w-xl text-center">
+            At Shoplyst, we offer an extensive range of products to meet all
+            your needs. Enjoy a seamless shopping experience with fast shipping
+            and top-notch customer service.
+          </p>
+        </div>
+        <div className="mx-auto mt-24 flex flex-col content-center justify-center gap-10 sm:flex-row sm:gap-6">
+          <Feature
+            title="Explore Our Extensive Product Range"
+            desc="From electronics to home goods, we have it all."
+            icon="basket-shopping"
+          />
+          <Feature
+            title="Experience Lightning-Fast Shipping"
+            desc="Get your orders delivered right to your door in no time."
+            icon="truck-fast"
+          />
+          <Feature
+            title="Count on Our Exceptional Customer Service"
+            desc="Our dedicated team is here to assist you every step of the way."
+            icon="comments-question-check"
+          />
+        </div>
+        <p className="mt-32 flex justify-center gap-4 text-center">
+          <a className="hover:text-cat" href="#shop">
+            Shop now
+          </a>{' '}
+          <span>
+            <FontAwesomeIcon
+              className="text-white hover:text-white"
+              icon={byPrefixAndName.fas[`angle-right`]}
+            />
+          </span>
+        </p>
       </Callout>
     </div>
   );
