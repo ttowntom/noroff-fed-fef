@@ -2,7 +2,7 @@ import { QueryClient } from '@tanstack/react-query';
 
 export const queryClient = new QueryClient();
 
-const url = 'https://v2.api.noroff.dev/online-shopee';
+const url = 'https://v2.api.noroff.dev/online-shop';
 
 export async function getProducts() {
   try {
