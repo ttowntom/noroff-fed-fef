@@ -1,3 +1,4 @@
+import { useQuery } from '@tanstack/react-query';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { byPrefixAndName } from '@awesome.me/kit-8d12afa6e5/icons';
 
@@ -8,9 +9,12 @@ import Callout from '../components/Callout';
 import Feature from '../components/Feature';
 import ProductCard from '../components/ProductCard';
 
-const products = await getProducts();
-
 export default function Home() {
+  const { data, isLoading, isError, error } = useQuery({
+    queryKey: ['products'],
+    queryFn: getProducts,
+  });
+
   return (
     <div className="w-full">
       <section
@@ -66,11 +70,15 @@ export default function Home() {
           </p>
         </div>
         {/* Render products */}
-        <div className="my-12 grid grid-cols-2 gap-4 sm:grid-cols-3">
-          {products.data.map((product) => (
-            <ProductCard key={product.id} product={product} />
-          ))}
-        </div>
+        {isLoading && <div>Loading...</div>}
+        {isError && <div>Error: {error.message}</div>}
+        {data && (
+          <div className="my-12 grid grid-cols-2 gap-4 sm:grid-cols-3">
+            {data.map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
+          </div>
+        )}
       </section>
 
       {/* Discover */}
