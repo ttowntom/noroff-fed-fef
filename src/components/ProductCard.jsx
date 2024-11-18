@@ -10,16 +10,16 @@ export default function ProductCard({ product }) {
     <div className="my-6 flex">
       <Link
         to={`/products/${product.id}`}
-        className="group hover:border-b-2 hover:border-navy"
+        className="group w-full overflow-hidden rounded-md shadow-md transition-colors duration-300 ease-in-out hover:border-b-2 hover:bg-gray-100 hover:shadow-lg"
       >
         <img
           src={product.image.url}
           alt={product.title}
           className="h-96 w-full transform rounded-md object-cover transition-transform duration-300 ease-in-out group-hover:scale-105"
         />
-        <div className="my-4 flex items-center justify-between">
+        <div className="my-4 flex items-center justify-between px-2">
           <div>
-            <h3 className="font-semibold">{product.title}</h3>
+            <h3 className="font-semibold text-navy">{product.title}</h3>
             <p>{priceFormatter(discount)}</p>
           </div>
           {price > discount && <OnSaleTag />}
