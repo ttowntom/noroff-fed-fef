@@ -7,7 +7,8 @@ import { getProducts } from '../util/http';
 import Button from '../components/Button';
 import Callout from '../components/Callout';
 import Feature from '../components/Feature';
-import ProductCard from '../components/ProductCard';
+import ProductCard, { ProductCardSkeleton } from '../components/ProductCard';
+import Error from '../components/Error';
 
 export default function Home() {
   const { data, isLoading, isError, error } = useQuery({
@@ -70,15 +71,18 @@ export default function Home() {
           </p>
         </div>
         {/* Render products */}
-        {isLoading && <div>Loading...</div>}
-        {isError && <div>Error: {error.message}</div>}
-        {data && (
-          <div className="my-12 grid grid-cols-2 gap-4 sm:grid-cols-3">
-            {data.map((product) => (
+        <div className="my-12 grid grid-cols-2 gap-4 sm:grid-cols-3">
+          {isLoading &&
+            Array.from({ length: 6 }).map((_, idx) => (
+              <ProductCardSkeleton key={idx} />
+            ))}
+
+          {data &&
+            data.map((product) => (
               <ProductCard key={product.id} product={product} />
             ))}
-          </div>
-        )}
+        </div>
+        {isError && <Error errorMsg={error.message} />}
       </section>
 
       {/* Discover */}
