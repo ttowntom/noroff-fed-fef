@@ -28,3 +28,13 @@ export default function ProductCard({ product }) {
     </div>
   );
 }
+
+export function ProductCardSkeleton() {
+  return (
+    <div className="my-6 flex flex-col gap-4">
+      <div className="h-72 w-full animate-pulse rounded-md bg-gray-300"></div>
+      <div className="h-6 w-48 animate-pulse rounded-md bg-gray-400"></div>
+      <div className="h-6 w-24 animate-pulse rounded-md bg-gray-300"></div>
+    </div>
+  );
+}
