@@ -1,9 +1,14 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { byPrefixAndName } from '@awesome.me/kit-8d12afa6e5/icons';
 
+import { getProducts } from '../util/http';
+
 import Button from '../components/Button';
 import Callout from '../components/Callout';
 import Feature from '../components/Feature';
+import ProductCard from '../components/ProductCard';
+
+const products = await getProducts();
 
 export default function Home() {
   return (
@@ -22,7 +27,9 @@ export default function Home() {
             you're looking for with ease.
           </p>
           <div className="flex gap-4">
-            <Button style="primary">Shop</Button>
+            <Button style="primary">
+              <a href="#shop">Shop</a>
+            </Button>
             <Button>
               <a href="#discover">Learn More</a>
             </Button>
@@ -35,7 +42,7 @@ export default function Home() {
       <Callout>
         <div className="flex flex-col text-center">
           <h2 className="invisible">Testimonial</h2>
-          <p className="text-cat font-bold">
+          <p className="font-bold text-cat">
             "Shoplyst has transformed my shopping experience completely!"
           </p>
           <img
@@ -49,17 +56,20 @@ export default function Home() {
       </Callout>
 
       {/* Shop */}
-      <section
-        id="hero"
-        className="mx-auto flex w-full max-w-screen-lg flex-col px-4 py-24 sm:flex-row"
-      >
-        <div className="flex w-1/2 flex-col">
+      <section id="shop" className="mx-auto w-full max-w-screen-lg px-4 py-24">
+        <div className="w-1/2">
           <p className="text-sm font-semibold">Splurge</p>
-          <h2 className="text-navy my-4 py-0 text-4xl font-medium">Products</h2>
+          <h2 className="my-4 py-0 text-4xl font-medium text-navy">Products</h2>
           <p>
             Discover the latest products from top brands across various
             categories. Shop for electronics, home goods, and more with ease.
           </p>
+        </div>
+        {/* Render products */}
+        <div className="my-12 grid grid-cols-2 gap-4 sm:grid-cols-3">
+          {products.data.map((product) => (
+            <ProductCard key={product.id} product={product} />
+          ))}
         </div>
       </section>
 
@@ -67,7 +77,7 @@ export default function Home() {
       <Callout>
         <div id="discover" className="flex flex-col text-center">
           <h2>Discover</h2>
-          <p className="text-cat my-2 text-3xl font-bold">
+          <p className="my-2 text-3xl font-bold text-cat">
             Unleash Your Shopping Experience with Shoplyst
           </p>
           <p className="mx-auto max-w-xl text-center">
