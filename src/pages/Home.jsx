@@ -10,6 +10,7 @@ import Feature from '../components/Feature';
 import ProductCard, { ProductCardSkeleton } from '../components/ProductCard';
 import Error from '../components/Error';
 
+
 export default function Home() {
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ['products'],
@@ -32,16 +33,19 @@ export default function Home() {
             you're looking for with ease.
           </p>
           <div className="flex gap-4">
+
             <Button style="primary">
               <a href="#shop">Shop</a>
             </Button>
             <Button>
               <a href="#discover">Learn More</a>
             </Button>
+
           </div>
         </div>
         <div className="w-full sm:w-1/2"></div>
       </section>
+
 
       {/* Testimonial */}
       <Callout>
@@ -127,6 +131,7 @@ export default function Home() {
           </span>
         </p>
       </Callout>
+
     </div>
   );
 }
