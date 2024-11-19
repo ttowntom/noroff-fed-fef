@@ -29,7 +29,6 @@ export default function RatingStar({ product }) {
       </div>
     );
   } else {
-    console.log(reviews.length);
     content = (
       <div className="flex gap-2 text-sm">
         <div>
