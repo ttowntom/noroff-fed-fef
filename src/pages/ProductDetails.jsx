@@ -14,7 +14,7 @@ export default function ProductDetails() {
   });
 
   return (
-    <div>
+    <div id="product-wrapper" className="w-full">
       {isLoading && <p>Loading...</p>}
       {data && <ProductDetailsCard product={data} />}
       {isError && <Error errorMsg={error.message} />}
