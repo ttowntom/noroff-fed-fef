@@ -24,7 +24,10 @@ export default function RatingStar({ product }) {
           ))}
         </div>
         <p>
-          ({rating} stars) • {reviews.length} reviews
+          ({rating} stars) •{' '}
+          <a href="#reviews" className="hover:underline">
+            {reviews.length} reviews
+          </a>
         </p>
       </div>
     );
@@ -54,7 +57,10 @@ export default function RatingStar({ product }) {
           ))}
         </div>
         <p>
-          ({rating} stars) • {reviews.length} reviews
+          ({rating} stars) •{' '}
+          <a href="#reviews" className="hover:underline">
+            {reviews.length} reviews
+          </a>
         </p>
       </div>
     );
