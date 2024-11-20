@@ -3,9 +3,12 @@ import { NavLink } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { byPrefixAndName } from '@awesome.me/kit-8d12afa6e5/icons';
 
+import { useCartStore } from '../store';
+
 export default function MainNavigation() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const menuRef = useRef(null);
+  const getTotalItems = useCartStore((state) => state.getTotalItems());
 
   // Close menu on outside click
   useEffect(() => {
@@ -22,7 +25,7 @@ export default function MainNavigation() {
   }, []);
 
   return (
-    <header className="border-navy my-4 border-b-[1px] shadow-md shadow-gray-300">
+    <header className="my-4 border-b-[1px] border-navy shadow-md shadow-gray-300">
       <nav
         ref={menuRef}
         className="mx-auto flex w-full max-w-screen-lg items-center px-4 pb-4"
@@ -31,7 +34,7 @@ export default function MainNavigation() {
         <div className="flex flex-grow">
           <NavLink
             to="/"
-            className="font-pacifico text-center text-xl"
+            className="text-center font-pacifico text-xl"
             onClick={() => setIsMenuOpen(false)}
           >
             {' '}
@@ -63,7 +66,7 @@ export default function MainNavigation() {
             isMenuOpen ? 'block' : 'hidden'
           }`}
         >
-          <li className="hover:bg-cat rounded border-b lg:border-none">
+          <li className="rounded border-b hover:bg-cat lg:border-none">
             <NavLink
               to="/"
               onClick={() => setIsMenuOpen(false)}
@@ -76,7 +79,7 @@ export default function MainNavigation() {
               Home
             </NavLink>
           </li>
-          <li className="hover:bg-cat rounded border-b lg:border-none">
+          <li className="rounded border-b hover:bg-cat lg:border-none">
             <NavLink
               to="/contact"
               onClick={() => setIsMenuOpen(false)}
@@ -95,11 +98,11 @@ export default function MainNavigation() {
               onClick={() => setIsMenuOpen(false)}
               className={({ isActive }) =>
                 isActive
-                  ? 'bg-cat text-navy block rounded border-black px-4 py-2 font-bold lg:inline'
-                  : 'bg-navy hover:bg-cat block rounded border-black px-4 py-2 font-light text-white hover:font-normal hover:text-black lg:inline'
+                  ? 'block rounded border-black bg-cat px-4 py-2 font-bold text-navy lg:inline'
+                  : 'block rounded border-black bg-navy px-4 py-2 font-light text-white hover:bg-cat hover:font-normal hover:text-black lg:inline'
               }
             >
-              Cart
+              {`Cart (${getTotalItems})`}
             </NavLink>
           </li>
         </ul>
