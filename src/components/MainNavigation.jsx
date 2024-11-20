@@ -10,8 +10,6 @@ export default function MainNavigation() {
   const menuRef = useRef(null);
   const getTotalItems = useCartStore((state) => state.getTotalItems());
 
-  const cartBtnContent = `Cart (${getTotalItems})`;
-
   // Close menu on outside click
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -104,7 +102,7 @@ export default function MainNavigation() {
                   : 'block rounded border-black bg-navy px-4 py-2 font-light text-white hover:bg-cat hover:font-normal hover:text-black lg:inline'
               }
             >
-              {cartBtnContent}
+              {`Cart (${getTotalItems})`}
             </NavLink>
           </li>
         </ul>
