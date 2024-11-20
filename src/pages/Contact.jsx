@@ -4,18 +4,31 @@ import { byPrefixAndName } from '@awesome.me/kit-8d12afa6e5/icons';
 import Button from '../components/Button';
 
 export default function Contact() {
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    console.log('Message sent!');
+
+    const formData = Object.fromEntries(new FormData(event.target));
+    console.log(formData);
+  };
+
   return (
     <div id="product-wrapper" className="w-full">
       <section
         id="contact-form"
         className="mx-auto flex w-full max-w-screen-lg flex-col px-4 pb-12 pt-6"
       >
+        {/* Title */}
         <div className="flex w-full flex-col gap-4 text-center">
           <p className="font-semibold text-navy">Get in Touch</p>
           <h1 className="text-5xl font-semibold text-navy">Contact Us</h1>
           <p>We'd love to hear from you. Reach out today!</p>
         </div>
-        <form className="mx-auto my-16 w-full max-w-[50ch]">
+        {/* Form */}
+        <form
+          onSubmit={handleSubmit}
+          className="mx-auto my-16 w-full max-w-[50ch]"
+        >
           <div className="flex w-full flex-col gap-4">
             <div className="flex flex-col gap-2">
               <label htmlFor="name">Name</label>
@@ -38,6 +51,16 @@ export default function Contact() {
               />
             </div>
             <div className="flex flex-col gap-2">
+              <label htmlFor="subject">Subject</label>
+              <input
+                type="text"
+                id="subject"
+                name="subject"
+                placeholder="Concerning order #12345"
+                className="rounded border border-navy p-2"
+              />
+            </div>
+            <div className="flex flex-col gap-2">
               <label htmlFor="message">Message</label>
               <textarea
                 id="message"
@@ -46,7 +69,9 @@ export default function Contact() {
                 className="h-28 rounded border border-navy p-2"
               ></textarea>
             </div>
-            <Button style="primary">Send Message</Button>
+            <Button type="submit" style="primary">
+              Send Message
+            </Button>
           </div>
         </form>
       </section>
