@@ -1,5 +1,8 @@
+import { NavLink } from 'react-router-dom';
+
 import discountCalculator from '../util/discountCalculator';
 import priceFormatter from '../util/priceFormatter';
+import { useCartStore } from '../store';
 
 import Button from './Button';
 import CategoryTag from './CategoryTag';
@@ -7,6 +10,18 @@ import RatingStar from './RatingStar';
 import ReviewsRenderer from './ReviewsRenderer';
 
 export default function ProductDetailsCard({ product }) {
+  const addToCart = useCartStore((state) => state.addToCart);
+  const handleAddToCart = () => {
+    const productObj = {
+      id: product.id,
+      title: product.title,
+      price: product.discountedPrice,
+      image: product.image.url,
+    };
+    addToCart(productObj);
+    console.log('Cart: ', useCartStore.getState().cart);
+  };
+
   const discount = discountCalculator(product);
 
   return (
@@ -43,19 +58,9 @@ export default function ProductDetailsCard({ product }) {
             <RatingStar product={product} />
           </div>
           <p className="text-lg">{product.description}</p>
-          <div className="flex gap-4">
-            <div className="flex flex-col">
-              <p className="text-sm">Quantity</p>
-              <input
-                type="number"
-                name="quantity"
-                className="w-14 rounded-md border border-gray-300 p-2"
-              />
-            </div>
-            <Button style="primary" grow="true">
-              Add to Cart
-            </Button>
-          </div>
+          <Button onClick={handleAddToCart} style="primary" grow="true">
+            Add to Cart
+          </Button>
           <div>
             <p className="mb-2 text-sm">Tags</p>
             <div className="flex gap-2 text-sm">
@@ -87,9 +92,10 @@ export default function ProductDetailsCard({ product }) {
             Explore our wide selection of products and find exactly what you
             need today!
           </p>
-          <Button inverse="true">
-            <a href="/#shop">Shop Now</a>
-          </Button>
+
+          <NavLink to="/#shop">
+            <Button inverse="true">Shop Now</Button>
+          </NavLink>
         </div>
       </section>
     </>
