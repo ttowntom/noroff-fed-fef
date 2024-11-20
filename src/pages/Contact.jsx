@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { z } from 'zod';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { byPrefixAndName } from '@awesome.me/kit-8d12afa6e5/icons';
@@ -6,6 +7,8 @@ import contactSchema from '../schemas/contactSchema';
 import Button from '../components/Button';
 
 export default function Contact() {
+  const [formErrors, setFormErrors] = useState({});
+
   const handleSubmit = (event) => {
     event.preventDefault();
 
@@ -13,9 +16,15 @@ export default function Contact() {
 
     try {
       contactSchema.parse(formData);
+      setFormErrors({});
       console.log('Form is valid: ', formData);
     } catch (error) {
       if (error instanceof z.ZodError) {
+        const errorObj = error.errors.reduce((acc, curr) => {
+          acc[curr.path[0]] = curr.message;
+          return acc;
+        }, {});
+        setFormErrors(errorObj);
         console.error('Validation errors:', error.errors);
       }
     }
@@ -46,8 +55,11 @@ export default function Contact() {
                 id="name"
                 name="name"
                 placeholder="John Doe"
-                className="rounded border border-navy p-2"
+                className={`rounded border p-2 ${formErrors.name ? 'border-error bg-error-light' : 'border-navy'}`}
               />
+              {formErrors.name && (
+                <p className="text-error">{formErrors.name}</p>
+              )}
             </div>
             <div className="flex flex-col gap-2">
               <label htmlFor="email">Email</label>
@@ -56,8 +68,11 @@ export default function Contact() {
                 id="email"
                 name="email"
                 placeholder="john.doe@email.com"
-                className="rounded border border-navy p-2"
+                className={`rounded border p-2 ${formErrors.email ? 'border-error bg-error-light' : 'border-navy'}`}
               />
+              {formErrors.email && (
+                <p className="text-error">{formErrors.email}</p>
+              )}
             </div>
             <div className="flex flex-col gap-2">
               <label htmlFor="subject">Subject</label>
@@ -66,8 +81,11 @@ export default function Contact() {
                 id="subject"
                 name="subject"
                 placeholder="Concerning order #12345"
-                className="rounded border border-navy p-2"
+                className={`rounded border p-2 ${formErrors.subject ? 'border-error bg-error-light' : 'border-navy'}`}
               />
+              {formErrors.subject && (
+                <p className="text-error">{formErrors.subject}</p>
+              )}
             </div>
             <div className="flex flex-col gap-2">
               <label htmlFor="message">Message</label>
@@ -75,8 +93,11 @@ export default function Contact() {
                 id="message"
                 name="message"
                 placeholder="Your message here..."
-                className="h-28 rounded border border-navy p-2"
+                className={`h-28 rounded border p-2 ${formErrors.message ? 'border-error bg-error-light' : 'border-navy'}`}
               ></textarea>
+              {formErrors.message && (
+                <p className="text-error">{formErrors.message}</p>
+              )}
             </div>
             <Button type="submit" style="primary">
               Send Message
