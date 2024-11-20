@@ -11,30 +11,35 @@ export default function Contact() {
   const [formData, setFormData] = useState({});
   const [touched, setTouched] = useState({});
 
-  const handleBlur = (event) => {
-    const { name, value } = event.target;
-    setTouched((prev) => ({ ...prev, [name]: true }));
-
+  const validateField = (name, value) => {
     try {
       contactSchema
         .pick({ [name]: contactSchema.shape[name] })
         .parse({ [name]: value });
-      setFormErrors((prev) => ({ ...prev, [name]: undefined }));
+      return undefined;
     } catch (error) {
       if (error instanceof z.ZodError) {
-        setFormErrors((prev) => ({
-          ...prev,
-          [name]: error.errors[0]?.message,
-        }));
+        return error.errors[0]?.message;
       }
     }
+  };
+
+  const handleBlur = (event) => {
+    const { name, value } = event.target;
+    setTouched((prev) => ({ ...prev, [name]: true }));
+    const error = validateField(name, value);
+    setFormErrors((prev) => ({ ...prev, [name]: error }));
   };
 
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
-  };
 
+    if (touched[name]) {
+      const error = validateField(name, value);
+      setFormErrors((prev) => ({ ...prev, [name]: error }));
+    }
+  };
   const handleSubmit = (event) => {
     event.preventDefault();
 
@@ -55,8 +60,6 @@ export default function Contact() {
       }
     }
   };
-
-  const isFormValid = contactSchema.safeParse(formData).success;
 
   return (
     <div id="product-wrapper" className="w-full">
@@ -85,7 +88,13 @@ export default function Contact() {
                 placeholder="John Doe"
                 onBlur={handleBlur}
                 onChange={handleChange}
-                className={`rounded border border-navy p-2 ${formErrors.name ? 'border-error bg-error-light' : touched.name && 'border-success bg-success-light'}`}
+                className={`rounded border p-2 ${
+                  touched.name && formErrors.name
+                    ? 'border-error bg-error-light' // Show error styling only if the field is touched
+                    : touched.name && !formErrors.name
+                      ? 'border-success bg-success-light' // Show success styling if touched and valid
+                      : 'border-navy'
+                }`}
               />
               {formErrors.name && (
                 <p className="text-error">{formErrors.name}</p>
@@ -100,7 +109,13 @@ export default function Contact() {
                 placeholder="john.doe@email.com"
                 onBlur={handleBlur}
                 onChange={handleChange}
-                className={`rounded border border-navy p-2 ${formErrors.email ? 'border-error bg-error-light' : touched.email && 'border-success bg-success-light'}`}
+                className={`rounded border p-2 ${
+                  touched.email && formErrors.email
+                    ? 'border-error bg-error-light' // Show error styling only if the field is touched
+                    : touched.email && !formErrors.email
+                      ? 'border-success bg-success-light' // Show success styling if touched and valid
+                      : 'border-navy'
+                }`}
               />
               {formErrors.email && (
                 <p className="text-error">{formErrors.email}</p>
@@ -113,7 +128,15 @@ export default function Contact() {
                 id="subject"
                 name="subject"
                 placeholder="Concerning order #12345"
-                className={`rounded border border-navy p-2 ${formErrors.subject ? 'border-error bg-error-light' : touched.subject && 'border-success bg-success-light'}`}
+                onBlur={handleBlur}
+                onChange={handleChange}
+                className={`rounded border p-2 ${
+                  touched.subject && formErrors.subject
+                    ? 'border-error bg-error-light' // Show error styling only if the field is touched
+                    : touched.subject && !formErrors.subject
+                      ? 'border-success bg-success-light' // Show success styling if touched and valid
+                      : 'border-navy'
+                }`}
               />
               {formErrors.subject && (
                 <p className="text-error">{formErrors.subject}</p>
@@ -125,13 +148,21 @@ export default function Contact() {
                 id="message"
                 name="message"
                 placeholder="Your message here..."
-                className={`h-28 rounded border border-navy p-2 ${formErrors.message ? 'border-error bg-error-light' : touched.message && 'border-success bg-success-light'}`}
+                onBlur={handleBlur}
+                onChange={handleChange}
+                className={`h-28 rounded border p-2 ${
+                  touched.message && formErrors.message
+                    ? 'border-error bg-error-light' // Show error styling only if the field is touched
+                    : touched.message && !formErrors.message
+                      ? 'border-success bg-success-light' // Show success styling if touched and valid
+                      : 'border-navy'
+                }`}
               ></textarea>
               {formErrors.message && (
                 <p className="text-error">{formErrors.message}</p>
               )}
             </div>
-            <Button disabled={!isFormValid} type="submit" style="primary">
+            <Button type="submit" style="primary">
               Send Message
             </Button>
           </div>
