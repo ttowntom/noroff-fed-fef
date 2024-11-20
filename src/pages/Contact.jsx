@@ -1,15 +1,24 @@
+import { z } from 'zod';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { byPrefixAndName } from '@awesome.me/kit-8d12afa6e5/icons';
 
+import contactSchema from '../schemas/contactSchema';
 import Button from '../components/Button';
 
 export default function Contact() {
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log('Message sent!');
 
     const formData = Object.fromEntries(new FormData(event.target));
-    console.log(formData);
+
+    try {
+      contactSchema.parse(formData);
+      console.log('Form is valid: ', formData);
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        console.error('Validation errors:', error.errors);
+      }
+    }
   };
 
   return (
