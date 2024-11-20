@@ -8,6 +8,32 @@ import Button from '../components/Button';
 
 export default function Contact() {
   const [formErrors, setFormErrors] = useState({});
+  const [formData, setFormData] = useState({});
+  const [touched, setTouched] = useState({});
+
+  const handleBlur = (event) => {
+    const { name, value } = event.target;
+    setTouched((prev) => ({ ...prev, [name]: true }));
+
+    try {
+      contactSchema
+        .pick({ [name]: contactSchema.shape[name] })
+        .parse({ [name]: value });
+      setFormErrors((prev) => ({ ...prev, [name]: undefined }));
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        setFormErrors((prev) => ({
+          ...prev,
+          [name]: error.errors[0]?.message,
+        }));
+      }
+    }
+  };
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -29,6 +55,8 @@ export default function Contact() {
       }
     }
   };
+
+  const isFormValid = contactSchema.safeParse(formData).success;
 
   return (
     <div id="product-wrapper" className="w-full">
@@ -55,7 +83,9 @@ export default function Contact() {
                 id="name"
                 name="name"
                 placeholder="John Doe"
-                className={`rounded border p-2 ${formErrors.name ? 'border-error bg-error-light' : 'border-navy'}`}
+                onBlur={handleBlur}
+                onChange={handleChange}
+                className={`rounded border border-navy p-2 ${formErrors.name ? 'border-error bg-error-light' : touched.name && 'border-success bg-success-light'}`}
               />
               {formErrors.name && (
                 <p className="text-error">{formErrors.name}</p>
@@ -68,7 +98,9 @@ export default function Contact() {
                 id="email"
                 name="email"
                 placeholder="john.doe@email.com"
-                className={`rounded border p-2 ${formErrors.email ? 'border-error bg-error-light' : 'border-navy'}`}
+                onBlur={handleBlur}
+                onChange={handleChange}
+                className={`rounded border border-navy p-2 ${formErrors.email ? 'border-error bg-error-light' : touched.email && 'border-success bg-success-light'}`}
               />
               {formErrors.email && (
                 <p className="text-error">{formErrors.email}</p>
@@ -81,7 +113,7 @@ export default function Contact() {
                 id="subject"
                 name="subject"
                 placeholder="Concerning order #12345"
-                className={`rounded border p-2 ${formErrors.subject ? 'border-error bg-error-light' : 'border-navy'}`}
+                className={`rounded border border-navy p-2 ${formErrors.subject ? 'border-error bg-error-light' : touched.subject && 'border-success bg-success-light'}`}
               />
               {formErrors.subject && (
                 <p className="text-error">{formErrors.subject}</p>
@@ -93,13 +125,13 @@ export default function Contact() {
                 id="message"
                 name="message"
                 placeholder="Your message here..."
-                className={`h-28 rounded border p-2 ${formErrors.message ? 'border-error bg-error-light' : 'border-navy'}`}
+                className={`h-28 rounded border border-navy p-2 ${formErrors.message ? 'border-error bg-error-light' : touched.message && 'border-success bg-success-light'}`}
               ></textarea>
               {formErrors.message && (
                 <p className="text-error">{formErrors.message}</p>
               )}
             </div>
-            <Button type="submit" style="primary">
+            <Button disabled={!isFormValid} type="submit" style="primary">
               Send Message
             </Button>
           </div>
