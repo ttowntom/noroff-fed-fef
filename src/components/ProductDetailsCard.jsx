@@ -19,7 +19,6 @@ export default function ProductDetailsCard({ product }) {
       image: product.image.url,
     };
     addToCart(productObj);
-    console.log('Cart: ', useCartStore.getState().cart);
   };
 
   const discount = discountCalculator(product);

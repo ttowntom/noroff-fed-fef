@@ -71,7 +71,7 @@ export default function Contact() {
   };
 
   return (
-    <div id="product-wrapper" className="w-full">
+    <div id="contact-wrapper" className="w-full">
       <section
         id="contact-form"
         className="mx-auto flex w-full max-w-screen-lg flex-col px-4 pb-12 pt-6"
