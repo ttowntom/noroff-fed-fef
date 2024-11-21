@@ -71,17 +71,19 @@ export default function Contact() {
   };
 
   return (
-    <div id="product-wrapper" className="w-full">
+    <div id="contact-wrapper" className="w-full">
       <section
         id="contact-form"
         className="mx-auto flex w-full max-w-screen-lg flex-col px-4 pb-12 pt-6"
       >
         {/* Title */}
-        <div className="flex w-full flex-col gap-4 text-center">
-          <p className="font-semibold text-navy">Get in Touch</p>
-          <h1 className="text-5xl font-semibold text-navy">Contact Us</h1>
-          <p>We'd love to hear from you. Reach out today!</p>
-        </div>
+        {!msgSent && (
+          <div className="flex w-full flex-col gap-4 text-center">
+            <p className="font-semibold text-navy">Get in Touch</p>
+            <h1 className="text-5xl font-semibold text-navy">Contact Us</h1>
+            <p>We'd love to hear from you. Reach out today!</p>
+          </div>
+        )}
         {/* Form */}
         {!msgSent && (
           <form
