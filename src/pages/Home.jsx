@@ -1,4 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
+import { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { byPrefixAndName } from '@awesome.me/kit-8d12afa6e5/icons';
 
@@ -10,12 +11,31 @@ import Feature from '../components/Feature';
 import ProductCard, { ProductCardSkeleton } from '../components/ProductCard';
 import Error from '../components/Error';
 
-
 export default function Home() {
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ['products'],
     queryFn: getProducts,
   });
+
+  const [searchQuery, setSearchQuery] = useState('');
+  const [filteredProducts, setFilteredProducts] = useState([]);
+
+  useEffect(() => {
+    if (data) {
+      const filteredTitle = data.filter((product) =>
+        product.title.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+      const filteredTags = data.filter((product) =>
+        product.tags.some((tag) => tag.toLowerCase().includes(searchQuery))
+      );
+      const filtered = Array.from(new Set([...filteredTitle, ...filteredTags]));
+      setFilteredProducts(filtered);
+    }
+  }, [data, searchQuery]);
+
+  const handleSearch = (event) => {
+    setSearchQuery(event.target.value.toLowerCase());
+  };
 
   return (
     <div className="w-full">
@@ -33,19 +53,16 @@ export default function Home() {
             you're looking for with ease.
           </p>
           <div className="flex gap-4">
-
             <Button style="primary">
               <a href="#shop">Shop</a>
             </Button>
             <Button>
               <a href="#discover">Learn More</a>
             </Button>
-
           </div>
         </div>
         <div className="w-full sm:w-1/2"></div>
       </section>
-
 
       {/* Testimonial */}
       <Callout>
@@ -74,19 +91,34 @@ export default function Home() {
             categories. Shop for electronics, home goods, and more with ease.
           </p>
         </div>
+        {/* Search */}
+        <div className="mt-12 flex w-full">
+          <input
+            type="text"
+            placeholder="Search for products..."
+            value={searchQuery}
+            onChange={handleSearch}
+            className="w-full rounded-l border border-gray-300 p-2"
+          />
+          <Button style="primary" className="rounded-r">
+            Search
+          </Button>
+        </div>
         {/* Render products */}
-        <div className="my-12 grid grid-cols-2 gap-4 sm:grid-cols-3">
+        <div className="mb-12 mt-6 grid grid-cols-2 gap-4 sm:grid-cols-3">
           {isLoading &&
             Array.from({ length: 6 }).map((_, idx) => (
               <ProductCardSkeleton key={idx} />
             ))}
 
-          {data &&
-            data.map((product) => (
-              <ProductCard key={product.id} product={product} />
-            ))}
+          {filteredProducts.map((product) => (
+            <ProductCard key={product.id} product={product} />
+          ))}
         </div>
         {isError && <Error errorMsg={error.message} />}
+        {data && filteredProducts.length === 0 && (
+          <p className="text-center text-gray-500">No products found</p>
+        )}
       </section>
 
       {/* Discover */}
@@ -131,7 +163,6 @@ export default function Home() {
           </span>
         </p>
       </Callout>
-
     </div>
   );
 }

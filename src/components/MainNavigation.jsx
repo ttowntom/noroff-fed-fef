@@ -66,7 +66,7 @@ export default function MainNavigation() {
             isMenuOpen ? 'block' : 'hidden'
           }`}
         >
-          <li className="rounded border-b hover:bg-cat lg:border-none">
+          <li className="h-full rounded border-b hover:bg-cat lg:border-none">
             <NavLink
               to="/"
               onClick={() => setIsMenuOpen(false)}
@@ -79,7 +79,7 @@ export default function MainNavigation() {
               Home
             </NavLink>
           </li>
-          <li className="rounded border-b hover:bg-cat lg:border-none">
+          <li className="h-full rounded border-b hover:bg-cat lg:border-none">
             <NavLink
               to="/contact"
               onClick={() => setIsMenuOpen(false)}

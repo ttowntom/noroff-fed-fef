@@ -13,7 +13,6 @@ import { queryClient } from './util/http';
 const router = createBrowserRouter([
   {
     path: '/',
-    errorElement: <Error />,
     element: <RootLayout />,
     children: [
       {
@@ -24,6 +23,7 @@ const router = createBrowserRouter([
       { path: 'products/:productId', element: <ProductDetails /> },
       { path: 'cart', element: <Cart /> },
       { path: 'contact', element: <Contact /> },
+      { path: '*', element: <Error /> },
     ],
   },
 ]);
