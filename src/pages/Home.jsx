@@ -22,9 +22,13 @@ export default function Home() {
 
   useEffect(() => {
     if (data) {
-      const filtered = data.filter((product) =>
+      const filteredTitle = data.filter((product) =>
         product.title.toLowerCase().includes(searchQuery.toLowerCase())
       );
+      const filteredTags = data.filter((product) =>
+        product.tags.some((tag) => tag.toLowerCase().includes(searchQuery))
+      );
+      const filtered = Array.from(new Set([...filteredTitle, ...filteredTags]));
       setFilteredProducts(filtered);
     }
   }, [data, searchQuery]);
