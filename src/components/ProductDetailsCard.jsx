@@ -1,4 +1,5 @@
 import { NavLink } from 'react-router-dom';
+import { useState } from 'react';
 
 import discountCalculator from '../util/discountCalculator';
 import priceFormatter from '../util/priceFormatter';
@@ -10,7 +11,9 @@ import RatingStar from './RatingStar';
 import ReviewsRenderer from './ReviewsRenderer';
 
 export default function ProductDetailsCard({ product }) {
+  const [addedToCart, setAddedToCart] = useState(false);
   const addToCart = useCartStore((state) => state.addToCart);
+
   const handleAddToCart = () => {
     const productObj = {
       id: product.id,
@@ -19,6 +22,7 @@ export default function ProductDetailsCard({ product }) {
       image: product.image.url,
     };
     addToCart(productObj);
+    setAddedToCart(true);
   };
 
   const discount = discountCalculator(product);
@@ -60,6 +64,15 @@ export default function ProductDetailsCard({ product }) {
           <Button onClick={handleAddToCart} style="primary" grow="true">
             Add to Cart
           </Button>
+          {addedToCart && (
+            <p className="text-center text-success">
+              The product was added to your{' '}
+              <NavLink className="font-semibold underline" to="/cart">
+                cart
+              </NavLink>
+              !
+            </p>
+          )}
           <div>
             <p className="mb-2 text-sm">Tags</p>
             <div className="flex gap-2 text-sm">
