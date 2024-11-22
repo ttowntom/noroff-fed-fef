@@ -1,23 +1,23 @@
 import { create } from 'zustand';
+import { saveLocal, loadLocal } from '../src/util/localStorage';
+
+const initialCart = loadLocal('cart') || [];
 
 export const useCartStore = create((set, get) => ({
-  cart: [],
+  cart: initialCart,
 
   addToCart: (product) =>
     set((state) => {
       const existingProduct = state.cart.find((item) => item.id === product.id);
 
-      if (existingProduct) {
-        return {
-          cart: state.cart.map((item) =>
+      const updatedCart = existingProduct
+        ? state.cart.map((item) =>
             item.id === product.id ? { ...item, amount: item.amount + 1 } : item
-          ),
-        };
-      }
+          )
+        : [...state.cart, { ...product, amount: 1 }];
 
-      return {
-        cart: [...state.cart, { ...product, amount: 1 }],
-      };
+      saveLocal('cart', updatedCart);
+      return { cart: updatedCart };
     }),
 
   decrementFromCart: (productId) =>
@@ -26,33 +26,31 @@ export const useCartStore = create((set, get) => ({
 
       if (!existingProduct) return state;
 
-      if (existingProduct.amount === 1) {
-        return {
-          cart: state.cart.filter((item) => item.id !== productId),
-        };
-      }
+      const updatedCart =
+        existingProduct.amount === 1
+          ? state.cart.filter((item) => item.id !== productId)
+          : state.cart.map((item) =>
+              item.id === productId
+                ? { ...item, amount: item.amount - 1 }
+                : item
+            );
 
-      return {
-        cart: state.cart.map((item) =>
-          item.id === productId ? { ...item, amount: item.amount - 1 } : item
-        ),
-      };
+      saveLocal('cart', updatedCart);
+      return { cart: updatedCart };
     }),
 
   removeFromCart: (productId) =>
-    set((state) => ({
-      cart: state.cart.filter((item) => item.id !== productId),
-    })),
+    set((state) => {
+      const updatedCart = state.cart.filter((item) => item.id !== productId);
+      saveLocal('cart', updatedCart);
+      return { cart: updatedCart };
+    }),
 
   getTotalPrice: () => {
-    return useCartStore
-      .getState()
-      .cart.reduce((acc, item) => acc + item.price * item.amount, 0);
+    return get().cart.reduce((acc, item) => acc + item.price * item.amount, 0);
   },
 
   getTotalItems: () => {
-    return useCartStore
-      .getState()
-      .cart.reduce((acc, item) => acc + item.amount, 0);
+    return get().cart.reduce((acc, item) => acc + item.amount, 0);
   },
 }));
