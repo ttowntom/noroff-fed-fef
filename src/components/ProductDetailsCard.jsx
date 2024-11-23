@@ -113,3 +113,21 @@ export default function ProductDetailsCard({ product }) {
     </>
   );
 }
+
+export function ProductDetailsSkeleton() {
+  return (
+    <div className="mx-auto flex w-full max-w-screen-lg flex-col px-4 pb-4 sm:flex-row">
+      <div className="w-full p-6 sm:w-1/2">
+        <div className="h-[400px] animate-pulse rounded-md bg-gray-300"></div>
+      </div>
+      <div className="flex w-full flex-col gap-6 p-6 sm:w-1/2">
+        <div className="h-12 w-3/4 animate-pulse rounded-md bg-gray-300"></div>
+        <div className="h-8 w-1/3 animate-pulse rounded-md bg-gray-300"></div>
+        <div className="mt-6 h-6 w-full animate-pulse rounded-md bg-gray-200"></div>
+        <div className="-mt-2 h-6 w-full animate-pulse rounded-md bg-gray-200"></div>
+        <div className="-mt-2 h-6 w-2/3 animate-pulse rounded-md bg-gray-200"></div>
+        <div className="mt-4 h-12 w-3/4 animate-pulse rounded-md bg-gray-300"></div>
+      </div>
+    </div>
+  );
+}

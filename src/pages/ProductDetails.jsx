@@ -2,7 +2,9 @@ import { useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 
 import { getProductById } from '../util/http';
-import ProductDetailsCard from '../components/ProductDetailsCard';
+import ProductDetailsCard, {
+  ProductDetailsSkeleton,
+} from '../components/ProductDetailsCard';
 import Error from '../components/Error';
 
 export default function ProductDetails() {
@@ -15,7 +17,7 @@ export default function ProductDetails() {
 
   return (
     <div id="product-wrapper" className="w-full">
-      {isLoading && <p>Loading...</p>}
+      {isLoading && <ProductDetailsSkeleton />}
       {data && <ProductDetailsCard product={data} />}
       {isError && <Error errorMsg={error.message} />}
     </div>
