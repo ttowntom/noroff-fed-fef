@@ -1,5 +1,7 @@
 # Frontend Frameworks, Shoplyst React App
 
+![image]([https://i.ibb.co/q3S2jvWh/THR-dev-1.png](https://i.ibb.co/wNKm6w7L/Shoplyst-1.png))
+
 A Noroff assignment with the goal "_To apply knowledge of React to build an eCom store._"
 
 ## Description
