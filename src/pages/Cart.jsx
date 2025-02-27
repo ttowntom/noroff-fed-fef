@@ -104,7 +104,9 @@ export default function Cart() {
         <section id="continue-shopping" className="bg-navy">
           <div className="mx-auto flex w-full max-w-screen-lg flex-col px-4 py-24">
             <div className="flex w-full flex-col">
-              <p className="mb-2 font-medium text-white">Let's get shippin'</p>
+              <p className="mb-2 font-medium text-white">
+                Let&apos;s get shippin&apos;
+              </p>
               <h2 className="text-4xl font-semibold text-cat">
                 Shipping Details
               </h2>

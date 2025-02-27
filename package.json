@@ -7,7 +7,9 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "lint:fix": "eslint . --fix",
+    "preview": "vite preview",
+    "format": "prettier --write ."
   },
   "dependencies": {
     "@awesome.me/kit-8d12afa6e5": "^1.0.14",

@@ -89,8 +89,8 @@ export default function ProductDetailsCard({ product }) {
             Customer Reviews
           </h2>
           <p className="mb-12">
-            Don't take it from us - here's what our customers say about this
-            product.
+            Don&apos;t take it from us - here&apos;s what our customers say
+            about this product.
           </p>
           <ReviewsRenderer reviewsArr={product.reviews} />
         </div>

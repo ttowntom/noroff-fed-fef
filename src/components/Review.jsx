@@ -33,7 +33,7 @@ export default function Review({ review }) {
           />
         ))}
       </div>
-      <p className="font-semibold">"{description}"</p>
+      <p className="font-semibold">&quot;{description}&quot;</p>
       <div className="flex gap-4">
         <img
           src="https://api.multiavatar.com/random.svg"

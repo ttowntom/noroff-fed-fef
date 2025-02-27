@@ -78,7 +78,7 @@ export default function Contact() {
           <div className="flex w-full flex-col gap-4 text-center">
             <p className="font-semibold text-navy">Get in Touch</p>
             <h1 className="text-5xl font-semibold text-navy">Contact Us</h1>
-            <p>We'd love to hear from you. Reach out today!</p>
+            <p>We&apos;d love to hear from you. Reach out today!</p>
           </div>
         )}
         {/* Form */}
@@ -203,7 +203,7 @@ export default function Contact() {
                 className="text-3xl"
               />
               <h2 className="text-2xl font-bold">Email</h2>
-              <p>We're here to assist you with any inquiries.</p>
+              <p>We&apos;re here to assist you with any inquiries.</p>
               <a className="mt-2 text-sm underline hover:no-underline" href="#">
                 support@shoplyst.com
               </a>
@@ -237,7 +237,7 @@ export default function Contact() {
       <section id="continue-shopping" className="bg-navy">
         <div className="mx-auto flex w-full max-w-screen-lg flex-col px-4 py-24 sm:flex-row">
           <h2 className="my-4 w-full py-0 text-4xl font-semibold text-cat sm:w-1/2">
-            We're Here to Help You
+            We&apos;re Here to Help You
           </h2>
           <p className="mb-12 w-full text-white sm:w-1/2">
             Have questions or need assistance? Reach out to us anytime, and our

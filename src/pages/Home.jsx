@@ -50,7 +50,7 @@ export default function Home() {
           <p>
             At ShopLyst, we bring you an extensive range of products tailored to
             your needs. Explore our latest promotions and find exactly what
-            you're looking for with ease.
+            you&apos;re looking for with ease.
           </p>
           <div className="flex gap-4">
             <Button style="primary">
@@ -69,7 +69,8 @@ export default function Home() {
         <div className="flex flex-col text-center">
           <h2 className="invisible">Testimonial</h2>
           <p className="font-bold text-cat">
-            "Shoplyst has transformed my shopping experience completely!"
+            &quot;Shoplyst has transformed my shopping experience
+            completely!&quot;
           </p>
           <img
             src="https://www.fakepersongenerator.com/Face/female/female201410239383418.jpg"
