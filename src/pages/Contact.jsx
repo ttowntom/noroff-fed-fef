@@ -10,7 +10,6 @@ import Button from '../components/Button';
 export default function Contact() {
   const navigate = useNavigate();
   const [formErrors, setFormErrors] = useState({});
-  const [formData, setFormData] = useState({});
   const [touched, setTouched] = useState({});
   const [msgSent, setMsgSent] = useState(false);
 
@@ -36,7 +35,6 @@ export default function Contact() {
 
   const handleChange = (event) => {
     const { name, value } = event.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
 
     if (touched[name]) {
       const error = validateField(name, value);
@@ -51,7 +49,6 @@ export default function Contact() {
     try {
       contactSchema.parse(formData);
       setFormErrors({});
-      setFormData(formData);
       setMsgSent(true);
       console.log('Form is valid: ', formData);
     } catch (error) {
