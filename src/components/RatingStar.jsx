@@ -17,9 +17,9 @@ export default function RatingStar({ product }) {
         <div>
           {[...Array(5)].map((_, index) => (
             <FontAwesomeIcon
-              key={index}
-              icon={byPrefixAndName.far['star']}
+              key={`star-${product.id}-position-${index + 1}`}
               className="text-yellow-500"
+              icon={byPrefixAndName.far['star']}
             />
           ))}
         </div>
@@ -37,20 +37,21 @@ export default function RatingStar({ product }) {
         <div>
           {[...Array(filledStars)].map((_, index) => (
             <FontAwesomeIcon
-              key={index}
+              key={`star-${product.id}-filled-${filledStars - index}`}
               icon={byPrefixAndName.fas['star']}
               className="text-yellow-500"
             />
           ))}
           {hasHalfStar && (
             <FontAwesomeIcon
+              key={`half-star-${product.id}`}
               icon={byPrefixAndName.fas['star-half-alt']}
               className="text-yellow-500"
             />
           )}
           {[...Array(emptyStars)].map((_, index) => (
             <FontAwesomeIcon
-              key={index}
+              key={`star-${product.id}-empty-${index + filledStars + (hasHalfStar ? 1 : 0)}`}
               icon={byPrefixAndName.far['star']}
               className="text-yellow-500"
             />
